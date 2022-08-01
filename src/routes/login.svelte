@@ -12,7 +12,7 @@
     else {
       email = '';
       password = '';
-      sessionStorage.setItem('token', data.jwt.token);
+      localStorage.setItem('token', data.jwt.token);
       goto('/');
     }
   };
