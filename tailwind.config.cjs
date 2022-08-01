@@ -2,12 +2,14 @@
 module.exports = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
-    colors: {
-      bg: '#282A3B',
-      blue: '#0FD9ED',
-      red: '#F84F60',
-      gray: '#757484'
-    },
+    extend: {
+      colors: {
+        bg: '#282A3B',
+        primary: '#0FD9ED',
+        secondary: '#F84F60',
+        tertiary: '#757484'
+      }
+    }
   },
   plugins: []
 };
