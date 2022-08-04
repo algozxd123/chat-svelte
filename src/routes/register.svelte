@@ -1,6 +1,6 @@
 <script lang='ts'>
   import { register } from '../libs/api';
-  import { alert } from '../libs/stores';
+  import { alertStore } from '../libs/stores';
   import { goto } from '$app/navigation';
 
   let username: string = '';
@@ -8,18 +8,19 @@
   let password: string = '';
 
   const submit = async () => {
-    const data = await register(username, email, password);
-
-    if(data.error) alert.set({message: data.error, type: 'error'});
-    else {
+    await register(username, email, password)
+    .then(() => {
       username = '';
       email = '';
       password = '';
-      if(data.message) alert.set({message: 'User created. You will be redirected in a few moments', type: 'info'});
+      alertStore.set({message: 'User created. You will be redirected in a few moments', type: 'info'});
       setTimeout(() => {
         goto('/login');
       }, 2000);
-    }
+    })
+    .catch(({ error }) => {
+      alertStore.set({message: error, type: 'error'});
+    });
   };
 </script>
 

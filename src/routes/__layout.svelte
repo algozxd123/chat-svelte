@@ -3,43 +3,35 @@
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import Alert from '../components/alert.svelte';
-  import { alertStore, alertTypes, userStore } from '../libs/stores';
-  import { goto } from '$app/navigation';
-  import { getContext, setContext } from 'svelte';
-  import { getUser } from '../libs/api';
+  import { alertStore, alertTypes, authStore } from '../libs/stores';
+  import Nav from '../components/nav.svelte';
+  import { initializeContext, preventUnauthorizedAccess, setAuthStore } from '../libs/auth';
 
   let authorized = false;
 
-  if (!getContext('user')) setContext('user', userStore);
+  initializeContext();
 
   onMount(async () => {
     const token = localStorage.getItem('token');
+    const urlPath = $page.url.pathname;
+    
+    preventUnauthorizedAccess(token, urlPath);
 
-    if (!token && $page.url.pathname !== '/login' && $page.url.pathname !== '/register') {
-      authorized = true;
-      goto('/login');
+    console.log($authStore);
+
+    if (token && $authStore.user._id === '') {
+      await setAuthStore(token);
     }
 
-    if (token && ($page.url.pathname === '/login' || $page.url.pathname === '/register')) {
-      authorized = true;
-      goto('/');
-    }
-
-    if (token) {
-      if ($userStore.username == '') {
-        const userData = await getUser(token);
-        userStore.set({
-          id: userData._id,
-          username: userData.username,
-          email: userData.email
-        });
-      }
-    }
     authorized = true;
   });
 </script>
 
 {#if authorized}
+  {#if $authStore.user._id !== ''}
+    <Nav />
+  {/if}
+
   <slot />
 
   {#if $alertStore.message.length > 0 && alertTypes.includes($alertStore.type)}

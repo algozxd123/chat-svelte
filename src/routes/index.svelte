@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { userStore } from '../libs/stores';
+  import { authStore } from '../libs/stores';
 </script>
 
-<h1 class="text-3xl font-bold underline">Hello world!</h1>
+<div class="flex justify-center items-center mt-48">
+  <h1 class="text-secondary text-3xl">Welcome <span class="text-primary">{$authStore.user.username}</span> !</h1>
+</div>

@@ -7,7 +7,6 @@
     alertStore.set({message: '', type: ''});
   }, 3000);
 
-  console.log($alertStore.type);
   if($alertStore.type === 'info') color = 'primary';
   else if($alertStore.type === 'error') color = 'secondary';
 

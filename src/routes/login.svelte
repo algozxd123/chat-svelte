@@ -1,20 +1,34 @@
 <script lang="ts">
   import { login } from '../libs/api';
-  import { alertStore } from '../libs/stores';
+  import { alertStore, authStore } from '../libs/stores';
   import { goto } from '$app/navigation';
 
   let email: string = 'gabriel3@gmail.com';
   let password: string = '12345678';
 
   const submit = async () => {
-    const data = await login(email, password);
-    if(data.error) alertStore.set({message: data.error, type: 'error'});
-    else {
-      email = '';
-      password = '';
-      localStorage.setItem('token', data.jwt.token);
-      goto('/');
-    }
+    await login(email, password)
+    .then(({ data }) => {
+      if(data){
+        email = '';
+        password = '';
+        localStorage.setItem('token', data.jwt.token);
+        authStore.set({
+          user: {
+            _id: data.user._id,
+            username: data.user.username,
+            email: data.user.email
+          },
+          jwt: {
+            token: data.jwt.token
+          }
+        });
+        goto('/');
+      }
+    })
+    .catch(({ error }) => {
+      alertStore.set({message: error, type: 'error'});
+    });
   };
 </script>
 
