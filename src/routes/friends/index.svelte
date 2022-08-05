@@ -156,7 +156,7 @@
   <div class="overflow-y-auto scroll-smooth scrollbar mt-6 w-96 flex flex-col space-y-5 p-5 h-112">
     {#if friends.length > 0}
       {#each friends as friend}
-        <Friend username={friend.username} link={`/friends/${friend._id}`} />
+        <Friend username={friend.username} link={`/friends/${friend.username}/${friend._id}`} />
       {/each}
     {:else}
       <span class="text-center text-lg text-secondary">No friends found.</span>

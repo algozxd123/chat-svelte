@@ -3,8 +3,8 @@
   import { alertStore, authStore } from '../libs/stores';
   import { goto } from '$app/navigation';
 
-  let email: string = 'gabriel3@gmail.com';
-  let password: string = '12345678';
+  let email: string = '';
+  let password: string = '';
 
   const submit = async () => {
     await login(email, password)

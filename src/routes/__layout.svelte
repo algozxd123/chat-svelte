@@ -17,8 +17,6 @@
     
     preventUnauthorizedAccess(token, urlPath);
 
-    console.log($authStore);
-
     if (token && $authStore.user._id === '') {
       await setAuthStore(token);
     }

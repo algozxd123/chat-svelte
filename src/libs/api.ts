@@ -1,4 +1,4 @@
-import type { ApiResponseType, ApiSuccessType, AuthType, RequestBodyType, RequestHeadersType, RequestOptionsType, UserType } from '../interfaces/api';
+import type { ApiResponseType, ApiSuccessType, AuthType, MessageType, RequestBodyType, RequestHeadersType, RequestOptionsType, UserType } from '../interfaces/api';
 import { isError } from '../interfaces/api';
 
 const sendRequest = async <T>(path: string, method: string, body: RequestBodyType = {}, token: string | null = null) => {
@@ -75,4 +75,12 @@ const acceptFriendRequest = async (token: string, friendId: string) => {
   return sendRequest<null>('/api/acceptFriendRequest', 'POST', body, token);
 };
 
-export { register, login, getUser, getFriendList, getFriendRequestList, sendFriendRequest, rejectFriendRequest, acceptFriendRequest };
+const getMessages = async (token: string, friendId: string) => {
+  const body = {
+    friendId
+  };
+
+  return sendRequest<MessageType[]>('/api/getMessages', 'POST', body, token)
+}
+
+export { register, login, getUser, getFriendList, getFriendRequestList, sendFriendRequest, rejectFriendRequest, acceptFriendRequest, getMessages };

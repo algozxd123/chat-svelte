@@ -16,6 +16,13 @@ export interface AuthType {
   jwt: JwtType
 };
 
+export interface MessageType {
+  senderId: string,
+  receiverId: string,
+  text: string,
+  createdAt: string
+}
+
 export interface ApiErrorType {
   error: string
 };
