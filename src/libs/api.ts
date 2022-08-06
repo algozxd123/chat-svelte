@@ -10,7 +10,7 @@ const sendRequest = async <T>(path: string, method: string, body: RequestBodyTyp
   const options: RequestOptionsType = { method, headers };
   if(body && Object.keys(body).length > 0) options['body'] = JSON.stringify(body);
 
-  const url = `https://${variables.API_HOST}:${variables.API_PORT}${path}`;
+  const url = `${variables.API_HOST}${path}`;
   
   const response = await fetch(url, options);
   const apiResponse: ApiResponseType<T> = await response.json();
