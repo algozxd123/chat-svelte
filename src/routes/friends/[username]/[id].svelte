@@ -27,7 +27,7 @@
     .catch(({error}) => {
       alertStore.set({message: error, type: 'error'});
     });
-    socket = io(`ws://${variables.API_HOST}`, {
+    socket = io(`${variables.API_HOST}`, {
       query: {
         token: `Bearer ${$authStore.jwt.token}`
       }
