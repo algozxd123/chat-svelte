@@ -6,6 +6,7 @@
   import { page } from '$app/stores'
   import { getMessages } from '../../../libs/api';
   import { afterUpdate, beforeUpdate } from 'svelte';
+  import { variables } from '../../../libs/variables';
 
   const friendId = $page.params['id'];
   const friendUsername = $page.params['username'];
@@ -26,7 +27,7 @@
     .catch(({error}) => {
       alertStore.set({message: error, type: 'error'});
     });
-    socket = io('ws://localhost:3000', {
+    socket = io(`ws://${variables.API_HOST}:${variables.API_PORT}`, {
       query: {
         token: `Bearer ${$authStore.jwt.token}`
       }
