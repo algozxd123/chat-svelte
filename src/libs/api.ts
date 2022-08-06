@@ -1,5 +1,6 @@
 import type { ApiResponseType, ApiSuccessType, AuthType, MessageType, RequestBodyType, RequestHeadersType, RequestOptionsType, UserType } from '../interfaces/api';
 import { isError } from '../interfaces/api';
+import { variables } from './variables';
 
 const sendRequest = async <T>(path: string, method: string, body: RequestBodyType = {}, token: string | null = null) => {
 
@@ -9,8 +10,8 @@ const sendRequest = async <T>(path: string, method: string, body: RequestBodyTyp
   const options: RequestOptionsType = { method, headers };
   if(body && Object.keys(body).length > 0) options['body'] = JSON.stringify(body);
 
-  const url = `http://localhost:3000${path}`;
-
+  const url = `http://${variables.API_HOST}:${variables.API_PORT}${path}`;
+  
   const response = await fetch(url, options);
   const apiResponse: ApiResponseType<T> = await response.json();
   return new Promise<ApiSuccessType<T>>(function (resolve, reject) {
