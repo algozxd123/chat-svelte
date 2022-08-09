@@ -2,6 +2,8 @@
 
 Real-time chat with friends made with Svelte. Back-end project made with Node: [https://github.com/algozxd123/chat-node](https://github.com/algozxd123/chat-node)
 
+Demo: [https://chat-svelte-project.herokuapp.com/](https://chat-svelte-project.herokuapp.com/) (Demo is using free heroku tier, so slowdowns are expected)
+
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
